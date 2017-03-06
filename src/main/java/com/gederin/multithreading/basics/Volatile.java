@@ -3,7 +3,7 @@ package com.gederin.multithreading.basics;
 
 import java.util.Scanner;
 
-public class Volitile {
+public class Volatile {
     public static void main(String[] args) {
         Processor processor = new Processor();
         processor.start();
@@ -18,7 +18,7 @@ public class Volitile {
 
 class Processor extends Thread {
 
-    private boolean running = true;
+    private volatile boolean running = true;
 
     public void run() {
         try {
