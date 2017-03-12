@@ -1,7 +1,10 @@
-package com.gederin.multithreading.basics;
+package com.gederin.multithreading.basics.threads;
 
 import com.gederin.multithreading.util.Util;
 
+/**
+ * Basic ways of thread creation and start
+ */
 public class StartingThreads {
     public static void main(String[] args) {
         RunnerExtend firstRunner = new RunnerExtend("runner 1");
@@ -21,6 +24,11 @@ public class StartingThreads {
                 Util.printCountWithSleep("runner 5", 5, 500);
             }
         }).start();
+
+        Runnable lambdaRunnable = () -> Util.printCountWithSleep("runner 6", 5, 500);
+
+        Thread lambdaThread = new Thread(lambdaRunnable);
+        lambdaThread.start();
     }
 }
 
