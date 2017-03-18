@@ -1,6 +1,9 @@
-package com.gederin.multithreading.basics;
+package com.gederin.multithreading.basics.synchronization;
 
 
+/**
+ * synchronized for method
+ */
 public class BasicSynchronization {
     private static final int TEN_K = 10000;
     private int count;
@@ -25,23 +28,26 @@ public class BasicSynchronization {
     }
 
     public void doWork() throws InterruptedException {
-        Thread thread1 = new Thread(new Runnable() {
-            public void run() {
-                synchronizedIncrement();
-            }
-        });
-
-        Thread thread2 = new Thread(new Runnable() {
-            public void run() {
-                synchronizedIncrement();
-            }
-        });
+        Thread thread1 = new Thread(this::synchronizedIncrement);
+        Thread thread2 = new Thread(this::synchronizedIncrement);
 
         thread1.start();
         thread2.start();
 
         thread1.join();
         thread2.join();
-        System.out.println("Count: " + count);
+
+        System.out.println("Count with synchronization: " + count);
+
+        thread1 = new Thread(this::increment);
+        thread2 = new Thread(this::increment);
+
+        thread1.start();
+        thread2.start();
+
+        thread1.join();
+        thread2.join();
+
+        System.out.println("Count without synchronization: " + count);
     }
 }

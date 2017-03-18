@@ -1,35 +1,40 @@
-package com.gederin.multithreading.basics;
+package com.gederin.multithreading.basics.synchronization;
 
+
+import com.gederin.multithreading.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * synchronization blocks
+ */
 public class Synchronization {
-    private Random random = new Random();
+    private final Random random = new Random();
 
     private List<Integer> integers_1 = new ArrayList<Integer>();
     private List<Integer> integers_2 = new ArrayList<Integer>();
 
-    private Object lock1 = new Object();
-    private Object lock2 = new Object();
+    private final Object lock1 = new Object();
+    private final Object lock2 = new Object();
 
-    private void stageOne() throws InterruptedException {
+    private void stageOne() {
         synchronized (lock1) {
-            Thread.sleep(1);
+            Util.sleep(1);
             integers_1.add(random.nextInt(100));
         }
     }
 
-    private void stageTwo() throws InterruptedException {
+    private void stageTwo() {
         synchronized (lock2) {
-            Thread.sleep(1);
+            Util.sleep(1);
             integers_2.add(random.nextInt(100));
         }
     }
 
-    private void process() throws InterruptedException {
-        for (int i = 0; i < 10000; i++) {
+    private void process() {
+        for (int i = 0; i < 1000; i++) {
             stageOne();
             stageTwo();
         }
@@ -39,7 +44,10 @@ public class Synchronization {
         new Synchronization().doWork();
     }
 
-    public void doWork() throws InterruptedException {
+    private void doWork() throws InterruptedException {
+        Thread thread1 = new Thread(this::process);
+        Thread thread2 = new Thread(this::process);
+
         System.out.println("starting ... ");
 
         long start = System.currentTimeMillis();
@@ -56,24 +64,4 @@ public class Synchronization {
         System.out.println("List 1: " + integers_1.size());
         System.out.println("List 2: " + integers_2.size());
     }
-
-    private Thread thread1 = new Thread(new Runnable() {
-        public void run() {
-            try {
-                process();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    });
-
-    private Thread thread2 = new Thread(new Runnable() {
-        public void run() {
-            try {
-                process();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    });
 }
