@@ -29,6 +29,13 @@ public class StartingThreads {
 
         Thread lambdaThread = new Thread(lambdaRunnable);
         lambdaThread.start();
+
+        Runnable task = () -> {
+            String threadName = Thread.currentThread().getName();
+            System.out.println("Hello " + threadName);
+        };
+
+        task.run();
     }
 }
 
