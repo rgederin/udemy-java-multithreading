@@ -1,7 +1,16 @@
 # udemy-java-multithreading
-Java Multithreading - Udemy on-line course
+Git repository which contains a bunch of multithreading examples. Based on free course Java Multithreading|Udemy as well as on other tutorials
 
-Topics covered:
+# Udemy certificate
+Link to certificate: https://www.udemy.com/certificate/UC-LABUO61I/
+
+# Useful resources
+  1. http://winterbe.com/posts/2015/04/07/java8-concurrency-tutorial-thread-executor-examples/
+  2. https://habrahabr.ru/company/luxoft/blog/157273/
+  3. http://www.cs.umd.edu/class/fall2002/cmsc433-0201/lectures/cpjslides.pdf
+  4. https://www.youtube.com/playlist?list=PL6jg6AGdCNaXo06LjCBmRao-qJdf38oKp
+  
+# Topics covered
   1. Basic (low-level) threads operations
      * Creation and start
      * Stop via flag and interrupt()
